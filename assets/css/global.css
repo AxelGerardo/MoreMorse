@@ -1,0 +1,556 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat';
+}
+
+.flex {
+    display: flex;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+input {
+    width: 280px;
+}
+  
+/* Menú */
+nav {
+    display: flex;
+    justify-content: space-between;
+
+    align-items: center;
+    padding: 10px 40px;
+    color: #ff9d00;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    position: fixed;
+    width: 95%;
+}
+  
+.menu-icon {
+    display: none;
+    cursor: pointer;
+}
+  
+.menu-icon .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #000;
+    margin: 4px 0;
+    transition: all 0.3s ease;
+}
+  
+#menu {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+  
+#menu li {
+    display: inline;
+    margin: auto;
+}
+
+.MorseCode {
+    color: #ff9d00;
+    font-weight: 900;
+    font-size: 40px;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+}
+  
+#menu li a {
+    color: #ff9d00;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    margin: auto;
+    font-size: 20px;
+    font-weight: 300;
+    padding-left: 50px;
+    transition: font-weight 0.1s ease;
+}
+#menu li a:hover {
+    font-weight: 800;
+}
+#menu .active-item {
+    font-weight: 800;
+}
+  
+.change .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+  
+.change .bar:nth-child(2) {
+    opacity: 0;
+}
+  
+.change .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Apartado de aprendizaje */
+main {
+    padding: 100px 40px 60px 40px;
+    background: linear-gradient(#fdfefe, #fbfcfc);
+}
+
+.info-learn {
+    gap: 30px;
+}
+.info-learn h2 {
+    font-size: clamp(1.25rem, 0.7813rem + 1.5vw, 1.625rem);
+    padding: 0 0 15px 0;
+}
+.info-learn h3 {
+    font-size: clamp(1rem, 0.6875rem + 1vw, 1.25rem);
+    padding: 30px 0 15px 0;
+    text-align: center;
+}
+.info-learn p {
+    font-size: clamp(0.75rem, 0.2813rem + 1.5vw, 1.125rem);
+}
+
+.info-abc {
+    background: linear-gradient(#fbfcfc, #f9f9f9); 
+    padding: 30px 40px 60px 40px;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+table {
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th, td {
+    padding: 12px 20px;
+}
+
+th {
+    background-color: #ff9d00;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(odd) {
+    background-color: #fafafa;
+}
+
+td {
+    font-size: 18px;
+    color: #333;
+}
+
+.info-rules {
+    background: linear-gradient(#f9f9f9, #f4f6f7);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.p--number {
+    background-color: #e68a00;
+    width: 25px;
+    min-width: 20px;
+    height: 25px;
+    min-height: 10px;
+    border-radius: 50%;
+    color: #fff;
+    font-size: clamp(0.875rem, 0.4063rem + 1.5vw, 1.25rem);
+    text-align: center;
+}
+
+.container-general {
+    display: flex;
+    gap: 10px;
+}
+
+/* Estilos del Apartado de Aprendizaje */
+.learning-container {
+    padding: 100px 40px;
+    background: linear-gradient(#f4f6f7, #f0f3f4);
+    height: 100vh;
+}
+.learning-container h1 {
+    font-size: clamp(1.25rem, 0.7813rem + 1.5vw, 1.625rem);
+}
+.learning-container p {
+    font-size: clamp(0.75rem, 0.2813rem + 1.5vw, 1.125rem);
+    padding: 30px 0;
+}
+.button-learning-container {
+    display: flex;
+    flex-direction: column;
+}
+.button-learning-container__option {
+    flex-direction: row;
+    gap: 30px;
+    padding: 0 0 30px 0;
+}
+.option__button {
+    width: 50%;
+}
+.button-learning-container button{
+    background-color: #ff9d00;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: clamp(0.75rem, 0.2813rem + 1.5vw, 1.125rem);
+    cursor: pointer;
+    width: 50%;
+    margin: 30px auto 0 auto;
+    transition: background-color 0.3s ease;
+}
+.button-learning-container button:hover{
+    background-color: #e68a00;
+}
+
+
+/* Estilos de Traductor */
+.translate-container {
+    padding: 100px 40px;
+    background: linear-gradient(#f0f3f4, #ecf0f1);
+}
+
+#morseForm {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#morseForm label {
+    font-size: 1rem;
+    color: #333;
+    display: block;
+    margin-bottom: 10px;
+}
+
+#morseForm input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    transition: border 0.3s ease-in-out;
+}
+
+#morseForm input[type="text"]:focus {
+    outline: none;
+    border-color: #ff9d00;
+}
+
+#morseForm button[type="submit"] {
+    background-color: #ff9d00;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+#morseForm button[type="submit"]:hover {
+    background-color: #e68a00;
+}
+
+#result {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #333;
+    text-align: center;
+}
+
+#playSoundButton{
+    background-color: #ff9d00;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 10px auto;
+    transition: background-color 0.3s ease;
+}
+#playSoundButton :hover{
+    background-color: #e68a00;
+}
+
+#vibrateButton {
+    background-color: #ff9d00;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 10px auto;
+    transition: background-color 0.3s ease;
+}
+
+#vibrateButton:hover {
+    background-color: #e68a00;
+}
+
+/* GAME EASY */
+.hidden {
+    display: none;
+}
+
+.game-selection {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.game-selection button, .exit-button {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.game-selection button:hover, .exit-button:hover {
+    background-color: #0056b3;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+.morse, .mensaje {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.letras-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.letter {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+
+
+/* Media Queries */
+@media (min-width: 1024px) {
+    #morseForm {
+        max-width: 50%;
+        padding: 30px;
+    }
+
+    #morseForm input[type="text"],
+    #morseForm button[type="submit"],
+    #vibrateButton {
+        font-size: 1.1rem;
+        padding: 12px 18px;
+    }
+
+    #result {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+
+    td {
+        font-size: 16px;
+    }
+
+    #morseForm {
+        max-width: 90%;
+        padding: 15px;
+    }
+
+    #morseForm label {
+        font-size: 0.95rem;
+    }
+
+    #morseForm input[type="text"],
+    #morseForm button[type="submit"],
+    #vibrateButton {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+    }
+
+    #result {
+        font-size: 1rem;
+    }
+}
+  
+@media (max-width: 695px) {
+    .menu-icon {
+        display: block;
+    }
+
+    #menu {
+        display: none;
+        position: absolute;
+        top: 50px;
+        right: 20px;
+        background-color: #333;
+        width: 200px;
+        flex-direction: column;
+    }
+
+    #menu.open {
+        display: flex;
+    }
+
+    #menu li {
+        margin-left: 0;
+        display: block;
+    }
+
+    #menu li a {
+        padding: 15px;
+        border-bottom: 1px solid #555;
+    }
+
+    .MorseCode {
+        margin: auto;
+        font-size: 20px;
+    }
+
+    #menu li a {
+        font-size: 16px;
+    }
+
+    .info-learn {
+        gap: 30px;
+        flex-direction: column;
+        text-align: center;
+    }
+    .info-learn img {
+        width: 200px;
+        height: 150px;
+        margin: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #morseForm {
+        max-width: 95%;
+        padding: 10px;
+    }
+
+    #morseForm label {
+        font-size: 0.85rem;
+    }
+
+    #morseForm input[type="text"],
+    #morseForm button[type="submit"],
+    #vibrateButton {
+        font-size: 0.85rem;
+        padding: 8px 10px;
+    }
+
+    #result {
+        font-size: 0.9rem;
+    }
+}
+
+
+/* Responsividad */
+@media (min-width: 600px) {
+    .options {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .options button {
+        width: auto;
+        min-width: 150px;
+    }
+}
+
+
+
+
+.test1 {
+    background: linear-gradient(red, blue);
+    width: 500px;
+    height: 200px;
+}
+
+.test2 {
+    background: linear-gradient(blue, green);
+    width: 500px;
+    height: 200px;
+}
+
+.test3 {
+    background: linear-gradient(green, yellow);
+    width: 500px;
+    height: 200px;
+}
+
+
+@media (max-width: 600px) {
+    .card {
+        max-width: 90%;
+    }
+    .letras-container {
+        flex-wrap: wrap;
+    }
+}

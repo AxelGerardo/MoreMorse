@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorseCode</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        .hidden { display: none; }
+        .game-selection { text-align: center; margin-top: 50px; }
+        .game-selection button { padding: 10px 20px; font-size: 18px; margin: 10px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <a href="index.html" class="MorseCode">MorseCode</a>
+            <ul id="menu" class="hidden">
+                <li><a href="index.html" class="menu__option">Aprender</a></li>
+                <li><a href="translate.html" class="menu__option">Traducir</a></li>
+                <li><a href="game-easy.html" class="menu__option active-item">Jugar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="game-selection" id="game-selection">
+            <h1>Selecciona un juego</h1>
+            <button class="game-button" onclick="startGame('game1')">Juego de Opciones</button>
+            <button class="game-button" onclick="startGame('game2')">Juego de Palabras</button>
+        </div>
+        <div class="card hidden" id="game1">
+            <h1>Juego de Opciones</h1>
+            <div class="morse" id="morse-code"></div>
+            <div class="options">
+                <button class="answer" onclick="checkAnswer(0)">Respuesta 1</button>
+                <button class="answer" onclick="checkAnswer(1)">Respuesta 2</button>
+                <button class="answer" onclick="checkAnswer(2)">Respuesta 3</button>
+            </div>
+            <p class="mensaje" id="result"></p>
+            <button class="exit-button" onclick="exitGame()">Salir</button>
+        </div>
+        <div class="card hidden" id="game2">
+            <h1>Juego de Palabras</h1>
+            <p>Traduce la siguiente palabra en código Morse:</p>
+            <div class="morse" id="morse-word"></div>
+            <div class="letras-container" id="letters-container"></div>
+            <button class="game-button" onclick="verifyWord()">Verificar</button>
+            <p class="mensaje" id="word-message"></p>
+            <button class="exit-button" onclick="exitGame()">Salir</button>
+        </div>
+    </main>
+
+    <script src="assets/js/menu.js"></script>
+    <script src="assets/js/game-easy.js"></script>
+    <script>
+        function startGame(gameId) {
+            document.getElementById('game-selection').classList.add('hidden');
+            document.getElementById(gameId).classList.remove('hidden');
+        }
+        function exitGame() {
+            document.getElementById('game1').classList.add('hidden');
+            document.getElementById('game2').classList.add('hidden');
+            document.getElementById('game-selection').classList.remove('hidden');
+        }
+
+        const morseDict = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.',
+            'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..',
+            'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.',
+            'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-',
+            'Y': '-.--', 'Z': '--..'
+        };
+
+        const words = ['HOLA', 'JUEGO', 'MORSE', 'CODIGO', 'DIVERTIDO'];
+        let currentWord = words[Math.floor(Math.random() * words.length)];
+
+        function showMorseWord() {
+            document.getElementById('morse-word').innerText = currentWord.split('').map(letter => morseDict[letter]).join(' ');
+            createLetterInputs();
+        }
+
+        function createLetterInputs() {
+            const container = document.getElementById('letters-container');
+            container.innerHTML = '';
+            currentWord.split('').forEach(() => {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.maxLength = 1;
+                input.className = 'letter';
+                container.appendChild(input);
+            });
+        }
+
+        function verifyWord() {
+            let inputs = document.querySelectorAll('.letter');
+            let userAnswer = Array.from(inputs).map(input => input.value.toUpperCase()).join('');
+            let message = document.getElementById('word-message');
+
+            if (userAnswer === currentWord) {
+                message.style.color = 'green';
+                message.innerText = '¡Correcto!';
+                setTimeout(() => {
+                    message.innerText = '';
+                    currentWord = words[Math.floor(Math.random() * words.length)];
+                    showMorseWord();
+                }, 1000);
+            } else {
+                message.style.color = 'red';
+                message.innerText = 'Incorrecto, intenta de nuevo.';
+            }
+        }
+
+        showMorseWord();
+    </script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juegos de Código Morse</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        .hidden { display: none; }
+        .fade-out { animation: fadeOut 0.5s forwards; }
+        .fade-in { animation: fadeIn 0.5s forwards; }
+        .slide-up { animation: slideUp 0.5s forwards; }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .horizontal-inputs input {
+            display: inline-block;
+            width: 30px;
+            text-align: center;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <a href="index.html" class="MorseCode">MorseCode</a>
+            <ul id="menu" class="hidden">
+                <li><a href="index.html" class="menu__option">Aprender</a></li>
+                <li><a href="translate.html" class="menu__option">Traducir</a></li>
+                <li><a href="game-easy.html" class="menu__option active-item">Jugar</a></li>
+            </ul>
+        </nav>
+    </header>
+    <br><br><br><br><br>
+    <h1>Juegos de Código Morse</h1>
+    <div id="modeSelection" class="slide-up">
+        <button id="mode1Btn" onclick="startGame(1)">Modo 1: Seleccionar respuesta</button>
+        <button id="mode2Btn" onclick="startGame(2)">Modo 2: Escribir palabra</button>
+    </div>
+    
+    <div id="game1" class="game-container hidden">
+        <h5>Minijuego donde tendras que seleccionar la opción correcta. <br><br></h5>
+        <h2 id="levelTitle">Nivel: Fácil</h2>
+        <h2 id="morseDisplay"></h2>
+        <div id="options"></div>
+        <p>Aciertos: <span id="correctCount">0</span> | Errores: <span id="errorCount">0</span></p>
+        <p id="errorMessage" class="hidden">¡Inténtalo de nuevo!</p>
+        <button onclick="exitGame()">Salir</button>
+    </div>
+    
+    <div id="game2" class="game-container hidden">
+        <h2 id="morseWord"></h2>
+        <div id="letterInputs" class="horizontal-inputs"></div>
+        <button onclick="checkWord()">Comprobar</button>
+        <p id="wordFeedback"></p>
+        <button onclick="exitGame()">Salir</button>
+    </div>
+
+    <div id="congratsScreen" class="game-container hidden">
+        <h2>¡Felicitaciones!</h2>
+        <button onclick="restartGame()">Reiniciar</button>
+        
+    </div>
+    
+    <script>
+        const morseDict = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
+            'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+            'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+            'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+            'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',
+            'Z': '--..', '1': '.----', '2': '..---', '3': '...--', '4': '....-',
+            '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----'
+        };
+        
+        const words = ['HOLA', 'MORSE', 'JUEGO'];
+        const levels = ['Fácil', 'Medio', 'Difícil'];
+        
+        function startGame(mode) {
+            document.getElementById('modeSelection').classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('modeSelection').classList.add('hidden');
+                if (mode === 1) {
+                    document.getElementById('game1').classList.remove('hidden');
+                    document.getElementById('game1').classList.add('fade-in');
+                    nextMorse();
+                } else {
+                    document.getElementById('game2').classList.remove('hidden');
+                    document.getElementById('game2').classList.add('fade-in');
+                    nextWord();
+                }
+            }, 500);
+        }
+        function exitGame() {
+            document.getElementById('game1').classList.add('hidden');
+            document.getElementById('game2').classList.add('hidden');
+            document.getElementById('modeSelection').classList.remove('hidden');
+            document.getElementById('modeSelection').classList.add('fade-in');
+        }
+
+
+        function checkAnswer(answer) {
+            if (answer === currentLetters) {
+                correctCount++;
+            } else {
+                errorCount++;
+            }
+            document.getElementById('correctCount').innerText = correctCount;
+            document.getElementById('errorCount').innerText = errorCount;
+            
+            if (errorCount >= 5) {
+                document.getElementById('errorMessage').classList.remove('hidden');
+                correctCount = 0;
+                errorCount = 0;
+                currentLevel = 0; // Reiniciar al nivel fácil
+                document.getElementById('levelTitle').innerText = `Nivel: ${levels[currentLevel]}`;
+                setTimeout(() => {
+                    document.getElementById('errorMessage').classList.add('hidden');
+                    nextMorse();
+                }, 1000);
+            } else if (correctCount >= 5) {
+                correctCount = 0;
+                currentLevel++;
+                if (currentLevel >= levels.length) {
+                    document.getElementById('game1').classList.add('hidden');
+                    document.getElementById('congratsScreen').classList.remove('hidden');
+                    return;
+                }
+                document.getElementById('levelTitle').innerText = `Nivel: ${levels[currentLevel]}`;
+                nextMorse();
+            } else {
+                nextMorse();
+            }
+        }
+        
+        function nextWord() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            document.getElementById('morseWord').innerText = currentWord.split('').map(l => morseDict[l]).join(' ');
+            let letterInputs = document.getElementById('letterInputs');
+            letterInputs.innerHTML = '';
+            currentWord.split('').forEach((_, index) => {
+                let input = document.createElement('input');
+                input.type = 'text';
+                input.maxLength = 1;
+                input.oninput = function() {
+                    if (this.value.length === 1 && index < currentWord.length - 1) {
+                        letterInputs.children[index + 1].focus();
+                    }
+                };
+                letterInputs.appendChild(input);
+            });
+            letterInputs.children[0].focus();
+        }
+        
+        function nextMorse() {
+            const letters = Object.keys(morseDict);
+            let numChars = currentLevel + 1; // 1 para fácil, 2 para medio, 3 para difícil
+            currentLetters = '';
+            let morseCode = [];
+            for (let i = 0; i < numChars; i++) {
+                let randomLetter = letters[Math.floor(Math.random() * letters.length)];
+                currentLetters += randomLetter;
+                morseCode.push(morseDict[randomLetter]);
+            }
+            document.getElementById('morseDisplay').innerText = morseCode.join(' ');
+            
+            let options = [currentLetters];
+            while (options.length < 3) {
+                let randomOption = '';
+                for (let i = 0; i < numChars; i++) {
+                    randomOption += letters[Math.floor(Math.random() * letters.length)];
+                }
+                if (!options.includes(randomOption)) options.push(randomOption);
+            }
+            options.sort(() => Math.random() - 0.5);
+            
+            let optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = '';
+            options.forEach(option => {
+                let button = document.createElement('button');
+                button.innerText = option;
+                button.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function checkWord() {
+            let inputs = document.querySelectorAll('#letterInputs input');
+            let userInput = Array.from(inputs).map(input => input.value.toUpperCase()).join('');
+            document.getElementById('wordFeedback').innerText = userInput === currentWord ? '¡Acertaste!' : 'Incorrecto! Inténtalo de nuevo.';
+            if (userInput === currentWord) {
+                setTimeout(() => {
+                    document.getElementById('wordFeedback').innerText = '';
+                    nextWord();
+                }, 1000);
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !document.getElementById('game2').classList.contains('hidden')) {
+                checkWord();
+            }
+        });
+    </script>
+</body>
+</html>

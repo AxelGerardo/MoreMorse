@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traductor MoreMorse</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .output {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        button {
+            padding: 10px 30px;
+            font-size: 12px;
+            border: none;
+            background-color: #ff9d00;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e68a00;
+        }
+    </style>
+</head>
+<body><header>
+    <nav>
+        <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <a href="index.html" class="MorseCode">MoreMorse</a>
+        <ul id="menu" class="hidden">
+            <li><a href="morse-learn.html" class="menu__option">Aprender</a></li>
+            <li><a href="translate.html" class="menu__option active-item">Traducir</a></li>
+            <li><a href="game.html" class="menu__option">Jugar</a></li>
+        </ul>
+    </nav>
+</header>
+<br><br><br><br>
+    <h1>Traductor a Código Morse</h1>
+    <form id="morseForm">
+        <input type="text" id="textInput" placeholder="Escribe texto aquí" required>
+        <button type="submit">Traducir</button>
+    </form>
+    <div class="output" id="result">Traducción en Morse: </div>
+    <button  onclick="playMorseAudio('slow')">Lento</button>
+    <button  onclick="playMorseAudio('medium')">Medio</button>
+    <button  onclick="playMorseAudio('fast')">Rápido</button>
+    <button id="vibrateButton" style="display: none;" onclick="vibrateMorse('slow')">Vibrar Lento</button>
+    <button id="vibrateButtonMedium" style="display: none;" onclick="vibrateMorse('medium')">Vibrar Medio</button>
+    <button id="vibrateButtonFast" style="display: none;" onclick="vibrateMorse('fast')">Vibrar Rápido</button>
+
+    <script>
+        const morseCode = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
+            'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+            'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+            'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+            'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',
+            'Z': '--..', '0': '-----', '1': '.----', '2': '..---',
+            '3': '...--', '4': '....-', '5': '.....', '6': '-....',
+            '7': '--...', '8': '---..', '9': '----.'
+        };
+
+        document.getElementById('morseForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let text = document.getElementById('textInput').value.toUpperCase();
+            let morse = text.split('').map(char => morseCode[char] || ' ').join(' ');
+            document.getElementById('result').innerText = `Traducción en Morse: ${morse}`;
+        });
+
+
+        function playMorseAudio(speed) {
+            let morse = document.getElementById('result').innerText.replace('Traducción en Morse: ', '');
+            let unit = speed === 'slow' ? 500 : speed === 'medium' ? 250 : 100;
+            let index = 0;
+            
+            function beep() {
+                if (index >= morse.length) return;
+                let char = morse[index];
+                let duration = char === '.' ? unit : char === '-' ? unit * 3 : unit;
+                if (char !== ' ') {
+                    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    let oscillator = audioCtx.createOscillator();
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(600, audioCtx.currentTime);
+                    oscillator.connect(audioCtx.destination);
+                    oscillator.start();
+                    setTimeout(() => {
+                        oscillator.stop();
+                        index++;
+                        setTimeout(beep, unit);
+                    }, duration);
+                } else {
+                    index++;
+                    setTimeout(beep, unit);
+                }
+            }
+            beep();
+        }
+
+        function vibrateMorse(speed) {
+            if (!navigator.vibrate) {
+                alert('Vibración no soportada en este dispositivo.');
+                return;
+            }
+            let morse = document.getElementById('result').innerText.replace('Traducción en Morse: ', '');
+            let unit = speed === 'slow' ? 500 : speed === 'medium' ? 300 : 100;
+            let pattern = [];
+            
+            for (let char of morse) {
+                if (char === '.') {
+                    pattern.push(unit);
+                } else if (char === '-') {
+                    pattern.push(unit * 3);
+                } else if (char === ' ') {
+                    pattern.push(0);
+                }
+                pattern.push(unit); 
+            }
+            navigator.vibrate(pattern);
+        }
+
+        if ('vibrate' in navigator && /Mobi|Android/i.test(navigator.userAgent)) {
+            document.getElementById('vibrateButton').style.display = 'inline';
+            document.getElementById('vibrateButtonMedium').style.display = 'inline';
+            document.getElementById('vibrateButtonFast').style.display = 'inline';
+        }
+    </script>
+    <script src="assets/js/menu.js"></script>
+</body>
+</html>

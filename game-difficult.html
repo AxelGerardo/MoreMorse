@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Conversión a Código Morse</title>
+    <style>
+        .options input {
+            margin: 10px;
+            padding: 10px;
+            width: 200px;
+        }
+
+        #resetBtn {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #submitBtn {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #ff9d00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Juego de Conversión a Código Morse</h1>
+    <p id="score">Puntos: 0</p>
+    <p id="round">Ronda: 1/10</p>
+    
+    <div id="textCard" style="font-size: 24px; margin-bottom: 20px;"></div>
+
+    <div class="options">
+        <input type="text" id="morseInput" placeholder="Introduce el código morse">
+    </div>
+
+    <button id="submitBtn">Enviar Respuesta</button>
+    <button id="resetBtn">Reiniciar Juego</button>
+
+    <script src="assets/js/game-difficult.js"></script>
+
+</body>
+</html>

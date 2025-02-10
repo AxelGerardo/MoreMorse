@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MorseCode</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu-icon" id="menu-icon" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <a href="index.html" class="MorseCode">MoreMorse</a>
+            <ul id="menu" class="hidden">
+                <li><a href="morse-learn.html" class="menu__option">Aprender</a></li>
+                <li><a href="translate.html" class="menu__option">Traducir</a></li>
+                <li><a href="game.html" class="menu__option">Jugar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="flex info-learn">
+            <div>
+                <h2>¿Qué es el Código Morse?</h2>
+                <p>Sistema de codificación de caracteres alfabéticos y numéricos que utiliza secuencias de señales, generalmente en forma de pulsos eléctricos, sonidos o luces, para transmitir mensajes a través de largas distancias.</p>
+            </div>
+            <img src="assets/img/telegrafo.png" alt="Imagen de un Telégrafo" width="300px" height="200">
+        </div>
+    </main>
+
+    <main class="info-abc info-learn">
+        <h2>Elementos</h2>
+        <p>El código Morse asigna a cada letra y número una secuencia única de puntos (cortos) y rayas (largos).</p>
+        <p>Por ejemplo, la letra A se representa como ".-" (punto-raya) y la letra B como "-..." (raya-punto-punto-punto).</p>
+        <h3>Abecedario</h3>
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Letra</th>
+                        <th>Código Morse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>A</td><td>.-</td></tr>
+                    <tr><td>B</td><td>-...</td></tr>
+                    <tr><td>C</td><td>-.-.</td></tr>
+                    <tr><td>D</td><td>-..</td></tr>
+                    <tr><td>E</td><td>.</td></tr>
+                    <tr><td>F</td><td>..-.</td></tr>
+                    <tr><td>G</td><td>--.</td></tr>
+                    <tr><td>H</td><td>....</td></tr>
+                    <tr><td>I</td><td>..</td></tr>
+                    <tr><td>J</td><td>.---</td></tr>
+                    <tr><td>K</td><td>-.-</td></tr>
+                    <tr><td>L</td><td>.-..</td></tr>
+                    <tr><td>M</td><td>--</td></tr>
+                    <tr><td>N</td><td>-.</td></tr>
+                    <tr><td>O</td><td>---</td></tr>
+                    <tr><td>P</td><td>.--.</td></tr>
+                    <tr><td>Q</td><td>--.-</td></tr>
+                    <tr><td>R</td><td>.-.</td></tr>
+                    <tr><td>S</td><td>...</td></tr>
+                    <tr><td>T</td><td>-</td></tr>
+                    <tr><td>U</td><td>..-</td></tr>
+                    <tr><td>V</td><td>...-</td></tr>
+                    <tr><td>W</td><td>.--</td></tr>
+                    <tr><td>X</td><td>-..-</td></tr>
+                    <tr><td>Y</td><td>-.--</td></tr>
+                    <tr><td>Z</td><td>--..</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h3>Números</h3>
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Código Morse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>0</td><td>-----</td></tr>
+                    <tr><td>1</td><td>.----</td></tr>
+                    <tr><td>2</td><td>..---</td></tr>
+                    <tr><td>3</td><td>...--</td></tr>
+                    <tr><td>4</td><td>....-</td></tr>
+                    <tr><td>5</td><td>.....</td></tr>
+                    <tr><td>6</td><td>-....</td></tr>
+                    <tr><td>7</td><td>--...</td></tr>
+                    <tr><td>8</td><td>---..</td></tr>
+                    <tr><td>9</td><td>----.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <main class="info-rules info-learn">
+        <h2>Reglas Básicas</h2>
+        <div class="container-general">
+            <div class="p--number">1</div>
+            <p>La duración del punto es la más breve posible.</p> 
+        </div>
+        <div class="container-general">
+            <div class="p--number">2</div>
+            <p>La raya tiene una duración cercana a tres veces la del punto.</p> 
+        </div>
+        <div class="container-general">
+            <div class="p--number">3</div>
+            <p>Entre dos símbolos de la misma letra, hay una pausa con una duración similar a la de un punto. </p>
+        </div>
+        <div class="container-general">
+            <div class="p--number">4</div>
+            <p>Entre las letras de una palabra, la pausa es aproximadamente el tiempo de tres puntos.</p>
+        </div>
+        <div class="container-general">
+            <div class="p--number">5</div>
+            <p>Para separar palabras en una transmisión, el intervalo es alrededor de tres veces la duración de una raya.</p>
+        </div> 
+
+        <center class="button-learning-container">
+            <a href="morse-learn.html">
+                <button>Comienza a Aprender Código Morse</button>
+            </a>
+        </center>
+    </main>
+
+    <script src="assets/js/translate.js"></script>
+    <script src="assets/js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Morse con Audio</title>
+    <style>
+        .options button {
+            margin: 10px;
+            padding: 10px;
+            background-color: #ff9d00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #resetBtn {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #speaker {
+            cursor: pointer;
+            margin: 20px;
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Juego de Morse con Audio</h1>
+    <p id="score">Puntos: 0</p>
+    <p id="round">Ronda: 1/10</p>
+    
+    <img id="speaker" src="bocina.png" alt="Bocina para reproducir sonido">
+
+    <div class="options">
+        <button id="option1"></button>
+        <button id="option2"></button>
+        <button id="option3"></button>
+    </div>
+
+    <button id="resetBtn">Reiniciar Juego</button>
+
+    <script src="assets/js/game-intermediate.js"></script>
+
+</body>
+</html>
